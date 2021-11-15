@@ -1,0 +1,5 @@
+{
+    "baseUrl": "http://192.168.50.169:8082",
+    "imgUrl":"http://192.168.93.141/app/image/",
+    "videoUrl":"http://192.168.93.141/app/image/"
+}
