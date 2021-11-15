@@ -231,6 +231,7 @@ export default {
   },
   methods: {
     getList() {
+      console.log(1111)
       this.listLoading = true
       fetchList(this.listQuery).then(response => {
         this.list = response.data.items
