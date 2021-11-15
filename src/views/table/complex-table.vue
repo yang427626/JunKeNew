@@ -231,7 +231,7 @@ export default {
   },
   methods: {
     getList() {
-      console.log(1111)
+      console.log('在这里更改了')
       this.listLoading = true
       fetchList(this.listQuery).then(response => {
         this.list = response.data.items
