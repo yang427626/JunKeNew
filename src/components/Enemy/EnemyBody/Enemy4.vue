@@ -10,7 +10,8 @@
           <p class="sub_title">(1)</p>
           <div class="textarea_div">
             <textarea
-              v-model="pro3_a"
+              v-model="$store.state.content.CM_J2_4_progress1"
+            :disabled="disabled"
               placeholder="下列因素有利于敌方采取该项能力"
               class="pro3_b1"
             />
@@ -20,7 +21,8 @@
           <p class="sub_title">(2)</p>
           <div class="textarea_div">
             <textarea
-              v-model="pro3_a"
+               v-model="$store.state.content.CM_J2_4_progress2"
+            :disabled="disabled"
               placeholder="该地区的地形不利于进攻"
               class="pro3_b1"
             />
@@ -30,7 +32,8 @@
           <p class="sub_title">(3)</p>
           <div class="textarea_div">
             <textarea
-              v-model="pro3_a"
+               v-model="$store.state.content.CM_J2_4_progress3"
+            :disabled="disabled"
               placeholder="公路和铁路网将不支持大规模部队和提供进攻该地区所需的行军活动"
               class="pro3_b1"
             />
@@ -40,7 +43,8 @@
           <p class="sub_title">(4)</p>
           <div class="textarea_div">
             <textarea
-              v-model="pro3_a"
+               v-model="$store.state.content.CM_J2_4_progress4"
+            :disabled="disabled"
               placeholder="利用这一能力将使敌方的西侧受到攻击"
               class="pro3_b1"
             />
@@ -50,7 +54,8 @@
           <p class="sub_title">(5)</p>
           <div class="textarea_div">
             <textarea
-              v-model="pro3_a"
+                v-model="$store.state.content.CM_J2_4_progress5"
+            :disabled="disabled"
               placeholder="除了在该地区进行的小型巡逻行动外,没有采用这种能力的迹象"
               class="pro3_b1"
             />
@@ -71,7 +76,8 @@
           <p class="sub_title">(2)</p>
           <div class="textarea_div">
             <textarea
-              v-model="pro3_a"
+               v-model="$store.state.content.CM_J2_4_progress6"
+            :disabled="disabled"
               placeholder="水域屏障的效能将会提高,以及随着季风的到来,斜坡上的通行能力将会恶化"
               class="pro3_b1"
             />
@@ -82,7 +88,8 @@
           <p class="sub_title">(1)</p>
           <div class="textarea_div">
             <textarea
-              v-model="pro3_a"
+              v-model="$store.state.content.CM_J2_4_progress7"
+            :disabled="disabled"
 
               class="pro3_b1"
             />
@@ -95,7 +102,8 @@
           <p class="sub_title">(1)</p>
           <div class="textarea_div">
             <textarea
-              v-model="pro3_a"
+              v-model="$store.state.content.CM_J2_4_progress8"
+            :disabled="disabled"
 
               class="pro3_b1"
             />
@@ -106,7 +114,8 @@
           <p class="sub_title">(1)</p>
           <div class="textarea_div">
             <textarea
-              v-model="pro3_a"
+              v-model="$store.state.content.CM_J2_4_progress9"
+            :disabled="disabled"
               placeholder="航空摄影显示在相应位置准备屏障"
               class="pro3_b1"
             />
@@ -116,7 +125,8 @@
           <p class="sub_title">(2)</p>
           <div class="textarea_div">
             <textarea
-              v-model="pro3_a"
+               v-model="$store.state.content.CM_J2_4_progress10"
+            :disabled="disabled"
               placeholder="已发现大量的兵力调动和沿水障的浮桥设备的预先部署"
               class="pro3_b1"
             />
@@ -124,35 +134,82 @@
         </div>
       </div>
     </div>
-    <div class="pro_bom">
-      <p class="pro_bom1">取消</p>
-      <p class="pro_bom2" @click="nextClick">下一步</p>
-      <p class="pro_bom2" @click="flxClick">确定</p>
-    </div>
+
   </div>
 </template>
 <script>
+import { save, GetRoutePageByTaskId } from "@/api/Ha";
 export default {
   data() {
     return {
-      pro3_a: ''
+       NumShow: 1,
+      id: "",
+      pro3_a:"",
+      disabled: false,
     }
+  },
+   props:{
+    confirm:String
+  },
+   created() {
+    if (this.$route.query.id == undefined) {
+    } else {
+      GetRoutePageByTaskId(this.baseUrl, {
+        id: this.$route.query.id,
+      }).then((res) => {
+        // console.log(res,'aaaaaaaaaa')
+        if (res.data.content == undefined) {
+        } else {
+          this.$store.state.content = res.data.content;
+        }
+      });
+      this.NumShow = this.$route.query.dealStatus;
+    }
+  },
+  watch: {
+    $route() {
+      this.NumShow = this.$route.query.dealStatus;
+      this.id = this.$route.query.id;
+    },
+    NumShow() {
+      if (this.NumShow == "0") {
+        this.disabled = true;
+      } else {
+        this.disabled = false;
+      }
+    },
+    id() {
+      GetRoutePageByTaskId(this.baseUrl, {
+        id: this.$route.query.id,
+      }).then((res) => {
+        if (res.data.content == undefined) {
+         
+        } else {
+          this.$store.state.content = res.data.content;
+        }
+      });
+    },
   },
   methods: {
     nextClick() {
-      this.$emit('nextClick', 9)
+      this.$emit('nextClick', 5)
     },
-    flxClick() {}
+    flxClick() {
+      save(this.baseUrl, {
+        taskId: this.$route.query.id,
+        content: this.$store.state.content,
+      });
+    },
   }
 }
 </script>
 <style lang="scss" scoped>
 .enemy {
   position: relative;
-  height: 25.5rem;
+  height: 24rem;
 }
 .pro4 {
-  height: 20rem;
+  height: 18rem;
   overflow-y: scroll;
 }
 .textarea_div {
@@ -189,6 +246,7 @@ export default {
   margin-left: 2rem;
 }
 textarea {
+  outline: none;
   resize: none;
   background: #1f295c;
   border: 1px solid #4156f4;

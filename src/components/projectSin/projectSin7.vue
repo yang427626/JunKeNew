@@ -5,22 +5,17 @@
       <div class="pro3_item">
         <span class="title">(1)</span>
         <div class="pro3_item_item">
-          <textarea v-model="pro3_a" class="pro3_a1" />
+          <textarea v-model="$store.state.HaAaveProject.proposal1" class="pro3_a1" />
           <p class="sub_title">列出参谋部可以考虑的行动方案.包括指挥官在规划指南中建议的临时行动方案,以及指挥官的行动部门或计划部门建议考虑的行动方案</p>
         </div>
       </div>
       <div class="pro3_item">
         <span class="title">(2)</span>
         <div class="pro3_item_item">
-          <textarea v-model="pro3_a" class="pro3_a1" />
+          <textarea v-model="$store.state.HaAaveProject.proposal2" class="pro3_a1" />
           <p class="sub_title">随着规划流程的继续,这些行动方案中的任何一个都可能被舍弃或修改,还有新的行动方案被确定和提出.</p>
         </div>
       </div>
-    </div>
-    <div class="pro_bom">
-      <p class="pro_bom1">取消</p>
-      <p class="pro_bom2" @click="nextClick">下一步</p>
-      <p class="pro_bom2" @click="flxClick">确定</p>
     </div>
   </div>
 </template>
@@ -89,7 +84,7 @@ textarea {
 .pro_bom {
   display: flex;
   position: absolute;
-  bottom: 1rem;
+  bottom: 0rem;
   right: 1rem;
 }
 .pro_bom1 {

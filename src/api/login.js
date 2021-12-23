@@ -1,5 +1,5 @@
 import request from '../utils/request1'
-export function Login(base_url, data) {
+export function LoginClick(base_url, data) {
   return request({
     headers: {
       'Content-Type': 'application/json'

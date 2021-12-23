@@ -8,21 +8,6 @@
         autocomplete="on"
         label-position="left"
       >
-        <!-- <div class="title-container">
-          <div style="text-align:center">
-            <img
-              src="../../assets/logo.png"
-              style="width:70px"
-              alt="网络直播监测预警"
-            >
-          </div>
-          <h3 class="title">
-            <div>
-              网络直播监测预警
-            </div>
-          </h3>
-        </div> -->
-
         <el-form-item prop="username">
           <span class="svg-container">
             <svg-icon icon-class="user" />
@@ -35,153 +20,114 @@
             type="text"
           />
         </el-form-item>
+
         <el-form-item prop="password">
           <span class="svg-container">
-            <svg-icon icon-class="user" />
+            <svg-icon icon-class="password" />
           </span>
           <el-input
+            :key="passwordType"
             ref="password"
             v-model="loginForm.password"
-            placeholder="password"
+            :type="passwordType"
+            placeholder="Password"
             name="password"
-            type="text"
+            tabindex="2"
+            autocomplete="on"
+            @blur="capsTooltip = false"
           />
+            <!-- @keyup.native="checkCapslock " -->
+          <span class="show-pwd" @click="showPwd">
+            <svg-icon
+              :icon-class="passwordType === 'password' ? 'eye' : 'eye-open'"
+            />
+          </span>
         </el-form-item>
         <el-button
           :loading="loading"
           type="primary"
           style="width: 100%; margin-bottom: 30px"
           @click.native.prevent="handleLogin"
-        >登 录</el-button>
+          >登 录</el-button
+        >
       </el-form>
     </el-card>
     <el-dialog title="Or connect with" :visible.sync="showDialog">
       Can not be simulated on local, so please combine you own business
       simulation! ! !
-      <br>
-      <br>
-      <br>
+      <br />
+      <br />
+      <br />
       <social-sign />
     </el-dialog>
   </div>
 </template>
 
 <script>
-import SocialSign from './components/SocialSignin'
-import { Login } from '../../api/login.js'
+import SocialSign from "./components/SocialSignin";
+import { LoginClick } from "../../api/login.js";
 export default {
-  name: 'Login',
+  name: "Login",
   components: { SocialSign },
   data() {
     return {
       loginForm: {
-        username: 'HA',
-        password: '123456'
+        username: "J0",
+        password: "123456",
       },
-      passwordType: 'password',
+      passwordType: "password",
       capsTooltip: false,
       loading: false,
       showDialog: false,
       redirect: undefined,
-      otherQuery: {}
-    }
+      otherQuery: {},
+    };
   },
-  // watch: {
-  //   $route: {
-  //     handler: function(route) {
-  //       const query = route.query
-  //       if (query) {
-  //         this.redirect = query.redirect
-  //         this.otherQuery = this.getOtherQuery(query)
-  //       }
-  //     },
-  //     immediate: true
-  //   }
-  // },
-  created() {
-    // window.addEventListener('storage', this.afterQRScan)
-  },
-  // mounted() {
-  //   if (this.loginForm.username === '') {
-  //     this.$refs.username.focus()
-  //   } else if (this.loginForm.password === '') {
-  //     this.$refs.password.focus()
-  //   }
-  // },
+
+  created() {},
   methods: {
-    checkCapslock(e) {
-      const { key } = e
-      this.capsTooltip = key && key.length === 1 && key >= 'A' && key <= 'Z'
-    },
+    // checkCapslock(e) {
+    //   const { key } = e;
+    //   this.capsTooltip = key && key.length === 1 && key >= "A" && key <= "Z";
+    // },
     showPwd() {
-      if (this.passwordType === 'password') {
-        this.passwordType = ''
+      if (this.passwordType === "password") {
+        this.passwordType = "";
       } else {
-        this.passwordType = 'password'
+        this.passwordType = "password";
       }
       this.$nextTick(() => {
-        this.$refs.password.focus()
-      })
+        this.$refs.password.focus();
+      });
     },
     handleLogin() {
-      console.log(this.loginForm.username, '111')
-      this.$router.push({
-        path: '/monitor'
-        // query: this.otherQuery,
-      })
-      // Login(this.baseUrl, {
-      //   password: "123456",
-      //   userName: "HA",
-      // }).then((res) => {
-      //   console.log(res);
-      //   if (res.code == 0) {
-      //     sessionStorage.setItem("flag", res.data.flag);
-      //     sessionStorage.setItem("token", res.data.token);
-      //     sessionStorage.setItem("userName", res.data.userName);
-      //     this.$router.push({
-      //       path: "/monitor",
-      //       // query: this.otherQuery,
-      //     });
-      //   } else {
-      //     this.$router.push({
-      //       path: "/",
-      //     });
-      //   }
-      // });
-      // sessionStorage.setItem("Power",'1')
-      // this.$router.push({
-      //           path: '/monitor',
-      //           query: this.otherQuery
-      //         })
+          //  this.$router.push({
+          //     path: "/Commander/monitor",
+          //   });  
+        LoginClick(this.baseUrl, {
+          password: this.loginForm.password,
+          userName: this.loginForm.username,
+        }).then((res) => {
+          if (res.code == 0) {
+            sessionStorage.setItem("token", res.data.token);
+            localStorage.setItem("flag", res.data.flag);
+            sessionStorage.setItem("userName", res.data.userName);
+            if(res.data.flag=='/Ha/monitor'){
+               this.$store.state.creare=false
+            }else{
+               this.$store.state.creare=true
+            }
+            this.$router.push({
+              path: res.data.flag,
+            });  
+          }else{
+            this.$message(res.msg)
+          }
+        });
     },
-    getOtherQuery(query) {
-      return Object.keys(query).reduce((acc, cur) => {
-        if (cur !== 'redirect') {
-          acc[cur] = query[cur]
-        }
-        return acc
-      }, {})
-    }
-    // afterQRScan() {
-    //   if (e.key === 'x-admin-oauth-code') {
-    //     const code = getQueryObject(e.newValue)
-    //     const codeMap = {
-    //       wechat: 'code',
-    //       tencent: 'code'
-    //     }
-    //     const type = codeMap[this.auth_type]
-    //     const codeName = code[type]
-    //     if (codeName) {
-    //       this.$store.dispatch('LoginByThirdparty', codeName).then(() => {
-    //         this.$router.push({ path: this.redirect || '/' })
-    //       })
-    //     } else {
-    //       alert('第三方登录失败')
-    //     }
-    //   }
-    // }
-  }
-}
+    creareClick(){}
+  },
+};
 </script>
 
 <style lang="scss">

@@ -2,12 +2,17 @@
   <!-- 制定行动方法 -->
   <div class="NavarchySin">
     <div class="task_title">制定行动方法</div>
+    <Action></Action>
   </div>
 </template>
 <script>
+import Action from '@/components/Action'
 export default {
   data() {
     return {}
+  },
+  components:{
+    Action
   },
   created() {},
   methods: {}

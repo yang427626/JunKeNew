@@ -35,7 +35,6 @@ import Enemy5 from '@/components/EnemyJ3/EnemyBody_J3/EnemyBody_5_J3.vue'
 import Enemy6 from '@/components/EnemyJ3/EnemyBody_J3/EnemyBody_6_J3.vue'
 import Enemy7 from '@/components/EnemyJ3/EnemyBody_J3/EnemyBody_7_J3.vue'
 
-import { viewHandDrowProject } from '@/api/programming.js'
 export default {
   name: 'TaskConter',
   components: {
@@ -109,9 +108,9 @@ export default {
 }
 .task_conter {
   background: #031437;
-  border: 1px solid #4156f4;
+  /* border: 1px solid #4156f4; */
   /* height: 25rem; */
-  position: relative;
+  /* position: relative; */
 }
 .text {
   color: #90c4df;
@@ -143,7 +142,7 @@ export default {
 .pro_bom {
   display: flex;
   position: absolute;
-  bottom: 1rem;
+  bottom: 0rem;
   right: 1rem;
 }
 .pro1 {

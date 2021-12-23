@@ -7,7 +7,7 @@
         <div class="pro3_a">
           <p class="sub_title">(1)</p>
           <div class="textarea_div">
-            <textarea v-model="pro3_a" class="pro3_b1" />
+            <textarea v-model="$store.state.HaAaveProject.guideA1" class="pro3_b1" />
             <p class="sub_title_p">
               说明继续规划所需的假设.它们将被下级司令部当作事实
             </p>
@@ -16,7 +16,7 @@
         <div class="pro3_a">
           <p class="sub_title">(2)</p>
           <div class="textarea_div">
-            <textarea v-model="pro3_a" class="pro3_b1" />
+            <textarea v-model="$store.state.HaAaveProject.guideA2" class="pro3_b1" />
             <p class="sub_title_p">
               说明继续规划所需的假设.它们将被下级司令部当作事实
             </p>
@@ -28,14 +28,14 @@
         <div class="pro3_a">
           <p class="sub_title">(1)</p>
           <div class="textarea_div">
-            <textarea v-model="pro3_a" class="pro3_b1" />
+            <textarea v-model="$store.state.HaAaveProject.guideB1" class="pro3_b1" />
             <p class="sub_title_p">包括上级当局的指南</p>
           </div>
         </div>
         <div class="pro3_a">
           <p class="sub_title">(2)</p>
           <div class="textarea_div">
-            <textarea v-model="pro3_a" class="pro3_b1" />
+            <textarea v-model="$store.state.HaAaveProject.guideB2" class="pro3_b1" />
             <p class="sub_title_p">列出影响行动的部队地位协定或基本权利</p>
           </div>
         </div>
@@ -45,21 +45,21 @@
         <div class="pro3_a">
           <p class="sub_title">(1)</p>
           <div class="textarea_div">
-            <textarea v-model="pro3_a" class="pro3_b1" />
+            <textarea v-model="$store.state.HaAaveProject.guideC1" class="pro3_b1" />
             <p class="sub_title_p">确定为规划而分派的战略或战术输送资产</p>
           </div>
         </div>
         <div class="pro3_a">
           <p class="sub_title">(2)</p>
           <div class="textarea_div">
-            <textarea v-model="pro3_a" class="pro3_b1" />
+            <textarea v-model="$store.state.HaAaveProject.guideC2" class="pro3_b1" />
             <p class="sub_title_p">突出运输资产的优先级或限制</p>
           </div>
         </div>
         <div class="pro3_a">
           <p class="sub_title">(3)</p>
           <div class="textarea_div">
-            <textarea v-model="pro3_a" class="pro3_b1" />
+            <textarea v-model="$store.state.HaAaveProject.guideC3" class="pro3_b1" />
             <p class="sub_title_p">装载港.卸载港和中转基地.在个小节中,确定用于支援计划的装载港.卸载港和间的中转基地</p>
           </div>
         </div>
@@ -69,7 +69,7 @@
         <div class="pro3_a">
           <p class="sub_title">(1)</p>
           <div class="textarea_div">
-            <textarea v-model="pro3_a" class="pro3_b1" />
+            <textarea v-model="$store.state.HaAaveProject.guideD" class="pro3_b1" />
             <p class="sub_title_p">给出来自相邻和下级支援的初步信息</p>
           </div>
         </div>
@@ -79,7 +79,7 @@
         <div class="pro3_a">
           <p class="sub_title">(1)</p>
           <div class="textarea_div">
-            <textarea v-model="pro3_a" class="pro3_b1" />
+            <textarea v-model="$store.state.HaAaveProject.guideE" class="pro3_b1" />
             <p class="sub_title_p">说明指挥官选择的指挥和控制编组</p>
           </div>
         </div>
@@ -89,16 +89,11 @@
         <div class="pro3_a">
           <p class="sub_title">(1)</p>
           <div class="textarea_div">
-            <textarea v-model="pro3_a" class="pro3_b1" />
+            <textarea v-model="$store.state.HaAaveProject.guideF" class="pro3_b1" />
             <p class="sub_title_p">包括指挥官认为必要的指南</p>
           </div>
         </div>
       </div>
-    </div>
-    <div class="pro_bom">
-      <p class="pro_bom1">取消</p>
-      <p class="pro_bom2" @click="nextClick">下一步</p>
-      <p class="pro_bom2" @click="flxClick">确定</p>
     </div>
   </div>
 </template>
@@ -157,7 +152,7 @@ textarea {
   overflow-y: scroll;
 }
 .sub_title {
-  margin: 0.5rem 0;
+  margin: 0.2rem 0;
   color: #90c4df;
   font-size: 0.8rem;
   // text-align: center;
@@ -176,7 +171,7 @@ textarea {
 .pro_bom {
   display: flex;
   position: absolute;
-  bottom: 1rem;
+  bottom: 0rem;
   right: 1rem;
 }
 .pro_bom1 {

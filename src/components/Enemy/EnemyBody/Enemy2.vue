@@ -6,7 +6,8 @@
       <div class="pro3_item">
         <span class="title">a、游击队</span>
         <div class="pro3_item_item">
-          <textarea v-model="pro3_a" class="pro3_b" />
+          <textarea  v-model="$store.state.content.CM_J2_2_progress1"
+            :disabled="disabled" class="pro3_b" />
           <p class="sub_title">
             （描述敌方在游击队和叛乱作战方面的能力、政策和现状。）
           </p>
@@ -15,7 +16,8 @@
       <div class="pro3_item">
         <span class="title">b、心理战</span>
         <div class="pro3_item_item">
-          <textarea v-model="pro3_a" class="pro3_b" />
+          <textarea v-model="$store.state.content.CM_J2_2_progress2"
+            :disabled="disabled" class="pro3_b" />
           <p class="sub_title">
             （描述敌方在作战区域内进行心理战的理论、技术、方法、组织和实施情况。）
           </p>
@@ -24,7 +26,8 @@
       <div class="pro3_item">
         <span class="title">c、颠覆</span>
         <div class="pro3_item_item">
-          <textarea v-model="pro3_a" class="pro3_b" />
+          <textarea v-model="$store.state.content.CM_J2_2_progress3"
+            :disabled="disabled" class="pro3_b" />
           <p class="sub_title">
             （描述敌方在作战区域内的进行破坏的理论、技术、方法、组织和实施情况。）
           </p>
@@ -33,7 +36,8 @@
       <div class="pro3_item">
         <span class="title">d、增援能力</span>
         <div class="pro3_item_item">
-          <textarea v-model="pro3_a" class="pro3_b" />
+          <textarea v-model="$store.state.content.CM_J2_2_progress4"
+            :disabled="disabled" class="pro3_b" />
           <p class="sub_title">
             （从地面部队、空军、海军、导弹和大规模杀伤性武器等方面描述敌军的增援能力；描述地形、天气、公路和铁路网、运输、轮换、劳动力、战俘政策以及其他参与邻国可能提供的援助。）
           </p>
@@ -42,26 +46,62 @@
       <div class="pro3_item">
         <span class="title">e、破坏</span>
         <div class="pro3_item_item">
-          <textarea v-model="pro3_a" class="pro3_b" />
+          <textarea v-model="$store.state.content.CM_J2_2_progress5"
+            :disabled="disabled" class="pro3_b" />
           <p class="sub_title">（描述敌方在作战区域内组织破坏活动的可能性。）</p>
         </div>
       </div>
     </div>
-
-    <div class="pro_bom">
-      <p class="pro_bom1">取消</p>
-      <p class="pro_bom2">保存</p>
-      <p class="pro_bom2">下一步</p>
-    </div>
   </div>
 </template>
 <script>
+import { save, GetRoutePageByTaskId } from "@/api/Ha";
 export default {
   data() {
     return {
-      pro3_input: '',
-      pro3_a: ''
+        NumShow: 1,
+      id: "",
+      disabled: false,
     }
+  },
+   created() {
+    if (this.$route.query.id == undefined) {
+    } else {
+      GetRoutePageByTaskId(this.baseUrl, {
+        id: this.$route.query.id,
+      }).then((res) => {
+        // console.log(res,'aaaaaaaaaa')
+        if (res.data.content == undefined) {
+        } else {
+          this.$store.state.content = res.data.content;
+        }
+      });
+      this.NumShow = this.$route.query.dealStatus;
+    }
+  },
+  watch: {
+    $route() {
+      this.NumShow = this.$route.query.dealStatus;
+      this.id = this.$route.query.id;
+    },
+    NumShow() {
+      if (this.NumShow == "0") {
+        this.disabled = true;
+      } else {
+        this.disabled = false;
+      }
+    },
+    id() {
+      GetRoutePageByTaskId(this.baseUrl, {
+        id: this.$route.query.id,
+      }).then((res) => {
+        if (res.data.content == undefined) {
+          
+        } else {
+          this.$store.state.content = res.data.content;
+        }
+      });
+    },
   },
   methods: {
     submitClick() {
@@ -69,9 +109,14 @@ export default {
     },
 
     nextClick() {
-      this.$emit('nextClick', 4)
+      this.$emit('nextClick', 3)
     },
-    flxClick() {}
+    flxClick() {
+      save(this.baseUrl,{
+        taskId:this.$route.query.id,
+        content:this.$store.state.content 
+      })
+    },
   }
 }
 </script>
@@ -91,6 +136,7 @@ export default {
 }
 textarea {
   resize: none;
+  outline: none;
   background: #1f295c;
   border: 1px solid #4156f4;
   color: #4a88a8;
@@ -146,7 +192,7 @@ textarea {
 .pro_bom {
   display: flex;
   position: absolute;
-  bottom: 1rem;
+  bottom: 0rem;
   right: 1rem;
 }
 .pro_bom1 {

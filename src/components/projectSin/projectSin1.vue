@@ -4,91 +4,82 @@
     <div class="pro_con2">
       <p class="pro_con_item">
         <span class="text_pro">文件名称:</span>
-        <el-input v-model="pro1_input1" />
-
+        <el-input v-model="$store.state.HaAaveProject.baseFileName" />
       </p>
       <p class="pro_con_item">
         <span class="text_pro"> 签发部门:</span>
-        <el-input v-model="pro1_input2" />
+        <el-input v-model="$store.state.HaAaveProject.baseSignDepartment" />
       </p>
       <p class="pro_con_item">
         <span class="text_pro">保密等级:</span>
-        <el-input v-model="pro1_input3" />
+        <el-input
+          v-model="$store.state.HaAaveProject.baseConfidentialityLevel"
+        />
       </p>
       <p class="pro_con_item">
         <span class="text_pro"> 签发地点:</span>
-        <el-input v-model="pro1_input3" />
+        <el-input v-model="$store.state.HaAaveProject.baseSignLocation" />
       </p>
       <p class="pro_con_item">
         <span class="text_pro"> 份数编号:</span>
-        <el-input v-model="pro1_input4" />
+        <el-input v-model="$store.state.HaAaveProject.baseProjectNo" />
       </p>
       <p class="pro_con_item">
         <span class="text_pro"> 信息索引/编号:</span>
         <el-input
-          v-model="pro1_input5"
+          v-model="$store.state.HaAaveProject.baseInfomationIndex"
           placeholder="(日期-时间组)"
         />
       </p>
       <p class="pro_con_item">
         <span class="text_pro"> 参考文献:</span>
         <!-- <input v-model="input7" class="inputcl" /> -->
-        <el-input
-          v-model="pro1_input6"
-          type="textarea"
-          :autosize="{ minRows: 2, maxRows: 4 }"
+        <textarea
+          v-model="$store.state.HaAaveProject.baseReference"
+          class="extarea"
           placeholder="地图或图表和相关文件"
         />
       </p>
       <p class="pro_con_item">
         <span class="text_pro"> 规划指令目的:</span>
-        <el-input v-model="pro1_input7" />
+        <el-input v-model="$store.state.HaAaveProject.baseTarget" />
       </p>
-    </div>
-    <div class="pro_bom">
-      <p class="pro_bom1">取消</p>
-      <p class="pro_bom2" @click="nextClick">下一步</p>
-      <!-- <p class="pro_bom2" @click="flxClick">确定</p> -->
     </div>
   </div>
 </template>
 <script>
+import { HaSaveProject } from "@/api/Ha";
 export default {
   data() {
     return {
-
-      pro1_input1: '',
-      pro1_input2: '',
-      pro1_input3: '',
-      pro1_input4: '',
-      pro1_input5: '',
-      pro1_input6: '',
-      pro1_input7: '',
-      pro1_input8: ''
-
-    }
+      data: "11111",
+      data1: "",
+    };
   },
-  // props:{
-  //   projectSinData:Object
-  // },
-  created() {
-
-  },
+  created() {},
   methods: {
     nextClick() {
-      this.$emit('nextClick', 2)
-    }
-    // flxClick(){
-    //   console.log(this.projectSinData.baseFileName)
-    // }
-  }
-}
+      this.$emit("nextClick", 2);
+    },
+  },
+};
 </script>
 <style lang="scss" scoped>
 .text_pro {
   display: inline-block;
   font-size: 0.7rem;
   width: 40%;
+}
+.extarea{
+  width: 87%;
+  font-size: 0.8rem;
+}
+textarea {
+  resize: none;
+  background: #1f295c;
+  border: 1px solid #4156f4;
+  color: #4a88a8;
+   outline:none;
 }
 .pro2 {
   width: 96%;
@@ -131,7 +122,7 @@ export default {
 .pro_bom {
   display: flex;
   position: absolute;
-  bottom: 1rem;
+  bottom: 0rem;
   right: 1rem;
 }
 .pro1 {

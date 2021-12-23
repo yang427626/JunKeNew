@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="message">
     <el-dialog title="消息区域" :visible.sync="messageData" width="80%">
       <div class="title">
         <p class="task_title" @click="superiorClick">上级命令</p>
@@ -257,13 +257,16 @@ export default {
       this.cancelData = true
     },
     cancelClck() {
-      console.log('11111')
+      
       this.$emit('cancelC', false)
     }
   }
 }
 </script>
 <style scoped>
+.message{
+  z-index: 10002;
+}
 .title {
   display: flex;
   color: #ffffff;
@@ -287,6 +290,7 @@ export default {
   font-weight: 500;
   color: #ffffff;
 }
+
 .conter {
   width: 100%;
   margin: 0 auto;
@@ -298,7 +302,7 @@ export default {
 }
 .table {
   height: 26vh;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 .task_title {
   font-size: 0.7rem;
@@ -312,18 +316,24 @@ export default {
   background-image: url("../../assets/img/hisq.png");
   cursor: pointer;
 }
-/deep/ .el-dialog__header {
+/deep/ .el-dialog__wrapper{
+  top:-2.5rem;
+}
+/deep/.el-dialog__header {
   /* background-image: url("../../assets/img/矩形 1129 拷贝.png"); */
   /* background-size: 100% 100%; */
   border: 1px solid #4156f4;
 }
-/deep/ .el-dialog {
+/deep/.el-dialog {
   /* background-image: url("../../assets/img/矩形 1129 拷贝.png");
   background-size: 100% 100%; */
   background: #031437;
   border: 1px solid #4156f4;
 }
-/deep/ .el-dialog__title {
+/deep/.el-table--enable-row-hover .el-table__body tr:hover > td {
+  background-color: #212e3e;
+}
+/deep/.el-dialog__title {
   font-size: 0.9rem;
   font-family: Source Han Sans CN;
   font-weight: 500;
@@ -332,18 +342,18 @@ export default {
 /deep/.el-table th > .cell {
   text-align: center;
 }
-/deep/ .el-table tr {
+/deep/.el-table tr {
   background-color: #031437;
   border: 1px solid #4156f4;
   color: #90c4df;
 }
-/deep/ .el-table--striped .el-table__body tr.el-table__row--striped td {
+/deep/.el-table--striped .el-table__body tr.el-table__row--striped td {
   background: #134088;
   /* box-shadow: 0px 1px 5px 0px c; */
   /* border: 1px solid #a5c6fb; */
   color: #90c4df;
 }
-/deep/ .el-button {
+/deep/.el-button {
   background: #061043;
   border: 1px solid #4156f4;
   box-shadow: 0px 1px 5px 0px #4f9adb;
@@ -351,10 +361,10 @@ export default {
   color: #90c4df;
   margin: 0.1rem 0.1rem;
 }
-/deep/ .el-dialog__headerbtn .el-dialog__close {
+/deep/.el-dialog__headerbtn .el-dialog__close {
   display: none;
 }
-/deep/ .el-checkbox__label {
+/deep/.el-checkbox__label {
   color: #ffffff;
 }
 /deep/.el-textarea__inner {
@@ -362,34 +372,51 @@ export default {
   height: 17rem;
   border: 1px solid #4156f4;
 }
-/deep/ .el-input--small {
+/deep/.el-input--small {
   width: 100%;
   margin-left: 1rem;
   background: #1f295c;
   border: 1px solid #4156f4;
 }
-/deep/ .el-input__inner {
+/deep/.el-input__inner {
   background: #1f295c;
   border: 1px solid #4156f4;
   color: #90c4df;
 }
-/deep/ .el-step__title.is-process {
+/deep/.el-step__title.is-process {
   font-weight: 400;
   color: #4156f4;
 }
-/deep/ .el-step__title.is-finish {
+/deep/.el-step__title.is-finish {
   font-weight: 400;
   color: #4156f4;
 }
-/deep/ .el-step__title.is-wait {
+/deep/.el-step__title.is-wait {
   font-weight: 400;
   color: #4156f4;
 }
-/deep/ .el-step__icon.is-text {
+/deep/.el-step__icon.is-text {
   background: #031437;
   color: #fff;
 }
-/deep/ .el-select{
+/deep/.el-select{
     width: 100%;
+}
+/deep/.el-dialog__header {
+  /* background-image: url("../../assets/img/矩形 1129 拷贝.png"); */
+  /* background-size: 100% 100%; */
+  border: 1px solid #4156f4;
+}
+/deep/.el-dialog {
+  /* background-image: url("../../assets/img/矩形 1129 拷贝.png");
+  background-size: 100% 100%; */
+  background: #031437;
+  border: 1px solid #4156f4;
+}
+/deep/.el-dialog__title {
+  font-size: 0.9rem;
+  font-family: Source Han Sans CN;
+  font-weight: 500;
+  color: #ffffff;
 }
 </style>

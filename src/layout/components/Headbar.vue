@@ -5,51 +5,57 @@
         <img
           src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fcar0.autoimg.cn%2Fupload%2F2013%2F2%2F18%2Fu_20130218165304639264.jpg&refer=http%3A%2F%2Fcar0.autoimg.cn&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1639107863&t=acd2f1c3191262bda945401acca46a48"
           alt=""
-        >
+        />
       </p>
-      <p class="title">xxxx指挥系统</p>
+      <p class="title">指挥系统</p>
     </div>
     <div class="headerbar_right">
       <p class="bottom">开始</p>
       <p class="bottom">紧急启动</p>
       <p class="bottom" @click="messageClick">消息记录</p>
       <p class="bot">{{ userName }}</p>
-      <p class="bot">登录</p>
+      <p class="bot" @click="login">登录</p>
     </div>
     <HeadbarMessage :message-data="messageData" @cancelC="cancelC" />
   </div>
 </template>
 
 <script>
-import HeadbarMessage from '@/components/HeadbarMessage/index.vue'
+import HeadbarMessage from "@/components/HeadbarMessage/index.vue";
 export default {
   components: {
-    HeadbarMessage
+    HeadbarMessage,
   },
   data() {
     return {
       userName: null,
-      messageData: false
-    }
+      projectName:"",
+      messageData: false,
+    };
   },
   created() {
-    this.userName = sessionStorage.getItem('userName')
+    this.userName = sessionStorage.getItem("userName");
   },
   methods: {
     messageClick() {
-      this.messageData = true
+      this.messageData = true;
     },
     cancelC(data) {
-      this.messageData = data
-    }
-  }
-}
+      this.messageData = data;
+    },
+    login() {
+      this.$router.push({
+        path: "/",
+      });
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>
 .headerbar {
   width: 100%;
-  height: 3rem;
+  height: 2.6rem;
   background: #061043;
   display: flex;
   align-items: center;
@@ -109,23 +115,24 @@ export default {
     text-align: center;
     background: #061043;
     border: 0px solid #4156f4;
+    cursor: pointer;
   }
   /deep/ .el-dialog__header {
-  /* background-image: url("../../assets/img/矩形 1129 拷贝.png"); */
-  /* background-size: 100% 100%; */
-  border: 1px solid #4156f4;
-}
-/deep/ .el-dialog {
-  /* background-image: url("../../assets/img/矩形 1129 拷贝.png");
+    /* background-image: url("../../assets/img/矩形 1129 拷贝.png"); */
+    /* background-size: 100% 100%; */
+    border: 1px solid #4156f4;
+  }
+  /deep/ .el-dialog {
+    /* background-image: url("../../assets/img/矩形 1129 拷贝.png");
   background-size: 100% 100%; */
-  background: #031437;
-  border: 1px solid #4156f4;
-}
-/deep/ .el-dialog__title {
-  font-size: 0.9rem;
-  font-family: Source Han Sans CN;
-  font-weight: 500;
-  color: #ffffff;
-}
+    background: #031437;
+    border: 1px solid #4156f4;
+  }
+  /deep/ .el-dialog__title {
+    font-size: 0.9rem;
+    font-family: Source Han Sans CN;
+    font-weight: 500;
+    color: #ffffff;
+  }
 }
 </style>

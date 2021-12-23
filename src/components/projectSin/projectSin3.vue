@@ -6,21 +6,21 @@
         <div class="pro3_item">
           <span class="title">a.</span>
           <div class="pro3_item_item">
-            <textarea v-model="pro3_a" class="pro3_a1" />
+            <textarea v-model="$store.state.HaAaveProject.missionA" class="pro3_a1" />
             <p class="sub_title">为司令部写一份清晰简洁的人物说明</p>
           </div>
         </div>
         <div class="pro3_item">
           <span class="title">b.</span>
           <div class="pro3_item_item">
-            <textarea v-model="pro3_a" class="pro3_b" />
+            <textarea v-model="$store.state.HaAaveProject.missionB" class="pro3_b" />
             <p class="sub_title">
               一个段落应列出国家战略目标,包括最终状态和预期效果(如已规定)以及任务,包括:
             </p>
             <div class="pro3_item">
               <span class="title1">(1)</span>
               <div class="pro3_item_item">
-                <textarea v-model="pro3_a" class="pro3_b1" />
+                <textarea v-model="$store.state.HaAaveProject.missionB1" class="pro3_b1" />
                 <p class="sub_title">
                   上级总部赋予的任务
                 </p>
@@ -29,7 +29,7 @@
             <div class="pro3_item">
               <span class="title1">(2)</span>
               <div class="pro3_item_item">
-                <textarea v-model="pro3_a" class="pro3_b1" />
+                <textarea v-model="$store.state.HaAaveProject.missionB2" class="pro3_b1" />
                 <p class="sub_title">为了传达对整体使命任务的清洗理解而必须描述的推断或隐藏任务</p>
 
               </div>
@@ -39,16 +39,11 @@
         <div class="pro3_item">
           <span class="title">c.</span>
           <div class="pro3_item_item">
-            <textarea v-model="pro3_a" class="pro3_b" />
+            <textarea v-model="$store.state.HaAaveProject.missionC" class="pro3_b" />
             <p class="sub_title">如果对使命任务或任务的分析没有进展到可以正式说明的程度,提供指挥官对使命任务的最佳判断</p>
           </div>
         </div>
       </div>
-    </div>
-    <div class="pro_bom">
-      <p class="pro_bom1">取消</p>
-      <p class="pro_bom2" @click="nextClick">下一步</p>
-      <p class="pro_bom2" @click="flxClick">确定</p>
     </div>
   </div>
 </template>
@@ -133,7 +128,7 @@ textarea{
 .pro_bom {
   display: flex;
   position: absolute;
-  bottom: 1rem;
+  bottom: 0rem;
   right: 1rem;
 }
 .pro_bom1 {

@@ -6,29 +6,29 @@
         <div class="pro3_item">
           <span class="title">(a).规划安排</span>
           <div class="pro3_item_item">
-            <textarea v-model="pro3_a" class="pro3_a1" />
+            <textarea v-model="$store.state.HaAaveProject.adminA" class="pro3_a1" />
             <div class="pro3_item">
               <span class="title1">(1)</span>
               <div class="pro3_item_item">
-                <textarea v-model="pro3_a" placeholder="规划会议安排" class="pro3_b1" />
+                <textarea v-model="$store.state.HaAaveProject.adminA1" placeholder="规划会议安排" class="pro3_b1" />
               </div>
             </div>
             <div class="pro3_item">
               <span class="title1">(2)</span>
               <div class="pro3_item_item">
-                <textarea v-model="pro3_a" placeholder="基本计划完成中止" class="pro3_b1" />
+                <textarea v-model="$store.state.HaAaveProject.adminA2" placeholder="基本计划完成中止" class="pro3_b1" />
               </div>
             </div>
             <div class="pro3_item">
               <span class="title1">(3)</span>
               <div class="pro3_item_item">
-                <textarea v-model="pro3_a" placeholder="附件完成中止" class="pro3_b1" />
+                <textarea v-model="$store.state.HaAaveProject.adminA3" placeholder="附件完成中止" class="pro3_b1" />
               </div>
             </div>
             <div class="pro3_item">
               <span class="title1">(4)</span>
               <div class="pro3_item_item">
-                <textarea v-model="pro3_a" placeholder="确定必要的其他里程碑事件" class="pro3_b1" />
+                <textarea v-model="$store.state.HaAaveProject.adminA4" placeholder="确定必要的其他里程碑事件" class="pro3_b1" />
               </div>
             </div>
           </div>
@@ -36,24 +36,24 @@
         <div class="pro3_item">
           <span class="title">(b)参谋部联络指示</span>
           <div class="pro3_item_item">
-            <textarea v-model="pro3_a" class="pro3_a1" />
+            <textarea v-model="$store.state.HaAaveProject.adminB" class="pro3_a1" />
           </div>
         </div>
         <div class="pro3_item">
           <span class="title">(c)协调</span>
           <div class="pro3_item_item">
-            <textarea v-model="pro3_a" class="pro3_a1" />
+            <textarea v-model="$store.state.HaAaveProject.adminC" class="pro3_a1" />
             <div class="pro3_item">
               <span class="title1">(1)</span>
               <div class="pro3_item_item">
-                <textarea v-model="pro3_a" placeholder="行动军官指定" class="pro3_b1" />
+                <textarea v-model="$store.state.HaAaveProject.adminC1" placeholder="行动军官指定" class="pro3_b1" />
 
               </div>
             </div>
             <div class="pro3_item">
               <span class="title1">(2)</span>
               <div class="pro3_item_item">
-                <textarea v-model="pro3_a" placeholder="基本计划完成中止" class="pro3_b1" />
+                <textarea v-model="$store.state.HaAaveProject.adminC2" placeholder="基本计划完成中止" class="pro3_b1" />
               </div>
             </div>
           </div>
@@ -61,15 +61,10 @@
         <div class="pro3_item">
           <span class="title">(d)安全说明</span>
           <div class="pro3_item_item">
-            <textarea v-model="pro3_a" class="pro3_a1" />
+            <textarea v-model="$store.state.HaAaveProject.adminD" class="pro3_a1" />
           </div>
         </div>
       </div>
-    </div>
-    <div class="pro_bom">
-      <p class="pro_bom1">取消</p>
-      <p class="pro_bom2" @click="nextClick">下一步</p>
-      <p class="pro_bom2" @click="flxClick">确定</p>
     </div>
   </div>
 </template>
@@ -81,10 +76,7 @@ export default {
     }
   },
   methods: {
-    nextClick() {
-      this.$emit('nextClick', 10)
-    },
-    flxClick() {}
+    
   }
 }
 </script>
@@ -154,7 +146,7 @@ textarea{
 .pro_bom {
   display: flex;
   position: absolute;
-  bottom: 1rem;
+  bottom: 0rem;
   right: 1rem;
 }
 .pro_bom1 {

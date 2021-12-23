@@ -1,7 +1,6 @@
 <template>
   <div id="app">
-    <!-- <div id="app" @mousemove="moveEvent" @click="moveEvent"> -->
-    <router-view />
+    <router-view/>
   </div>
 </template>
 
@@ -19,11 +18,9 @@ export default {
   },
   methods: {
     //  moveEvent(){
-    //   let path = [sessionStorage.getItem("mhUrl")]
-    //   if(!path.includes(this.$route.path)) {
+    //    console.log("li")
     //     clearTimeout(this.timmer);
     //     this.init();
-    //   }
     // },
 
     // init(){
@@ -43,5 +40,6 @@ export default {
 <style scoped>
 #app{
   background: #4156F4;
+  overflow: hidden;
 }
 </style>

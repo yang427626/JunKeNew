@@ -8,20 +8,15 @@
       <div class="pro3_item">
         <span class="title">(1) 隶属兵力</span>
         <div class="pro3_item_item">
-          <textarea v-model="pro3_a" class="pro3_a1" />
+          <textarea v-model="$store.state.HaAaveProject.troops1" class="pro3_a1" />
         </div>
       </div>
       <div class="pro3_item">
         <span class="title">(2) 加强兵力</span>
         <div class="pro3_item_item">
-          <textarea v-model="pro3_a" class="pro3_a1" />
+          <textarea v-model="$store.state.HaAaveProject.troops2" class="pro3_a1" />
         </div>
       </div>
-    </div>
-    <div class="pro_bom">
-      <p class="pro_bom1">取消</p>
-      <p class="pro_bom2" @click="nextClick">下一步</p>
-      <p class="pro_bom2" @click="flxClick">确定</p>
     </div>
   </div>
 </template>
@@ -87,7 +82,7 @@ textarea {
 .pro_bom {
   display: flex;
   position: absolute;
-  bottom: 1rem;
+  bottom: 0rem;
   right: 1rem;
 }
 .pro_bom1 {

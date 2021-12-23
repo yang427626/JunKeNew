@@ -2,12 +2,17 @@
   <!-- 定义问题 -->
   <div class="NavarchySin">
     <div class="task_title">定义问题</div>
+    <Issue></Issue>
   </div>
 </template>
 <script>
+import Issue from '@/components/Issue'
 export default {
   data() {
     return {}
+  },
+  components:{
+    Issue
   },
   created() {},
   methods: {}

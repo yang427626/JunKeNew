@@ -2,12 +2,17 @@
   <!-- 形成指挥官初始规模指南 -->
   <div class="NavarchySin">
     <div class="task_title">形成指挥官初始规模指南</div>
+    <Guide></Guide>
   </div>
 </template>
 <script>
+import Guide from '@/components/Guide'
 export default {
   data() {
     return {}
+  },
+  components:{
+    Guide
   },
   created() {},
   methods: {}

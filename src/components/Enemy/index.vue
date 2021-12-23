@@ -1,6 +1,6 @@
 <template>
   <div class="task_conter">
-    <!-- <div class="task_title">编辑规划指令</div> -->
+    <div class="task_title">敌方中立方信息</div>
     <div>
       <div class="progress">
         <el-steps :active="progress">
@@ -14,108 +14,191 @@
         <Enemy1
           v-show="progress == 1"
           :project-sin-data="projectSinData"
-          @nextClick="nextClick"
+        
         />
 
-        <Enemy2
-          v-show="progress == 2"
-          @nextClick="nextClick"
-        />
+        <Enemy2 v-show="progress == 2" />
 
         <Enemy3
           v-show="progress == 3"
-          @nextClick="nextClick"
+     
         />
 
         <Enemy4
           v-show="progress == 4"
-          @nextClick="nextClick"
+     
         />
 
         <Enemy5
           v-show="progress == 5"
-          @nextClick="nextClick"
+       
         />
 
-        <Enemy6
-          v-show="progress == 6"
-          @nextClick="nextClick"
-        />
+        <Enemy6 v-show="progress == 6"/>
         <div />
       </div>
     </div>
+    <div class="pro_bom">
+      <p class="pro_bom1">取消</p>
+      <p class="pro_bom2" @click="refuse = true" v-if="authRight == 1">拒绝</p>
+      <p class="pro_bom2" @click="flxClick">保存</p>
+      <p class="pro_bom2" @click="nextClick"  v-if="progress<6">下一步</p>
+      <p class="pro_bom2" @click="submitClick" v-if="progress>=6">提交</p>
+    </div>
+    <!-- 退回 -->
+    <el-dialog :visible.sync="refuse" title="退回原因" width="30%">
+      <div class="newMessage">
+        <p class="newMessage_title">请说出您的退回理由：</p>
+      </div>
+      <div>
+        <textarea
+          v-model="refuseData"
+          type="textarea"
+          class="textarea dial"
+          :disabled="disabled"
+          :autosize="{ minRows: 4, maxRows: 4 }"
+        />
+      </div>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="refuse = false">取 消</el-button>
+        <el-button type="primary" @click="refuse_Dialog_Clcik">确 定</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 <script>
-import Enemy1 from '@/components/Enemy/EnemyBody/Enemy1.vue'
-import Enemy2 from '@/components/Enemy/EnemyBody/Enemy2.vue'
-import Enemy3 from '@/components/Enemy/EnemyBody/Enemy3.vue'
-import Enemy4 from '@/components/Enemy/EnemyBody/Enemy4.vue'
-import Enemy5 from '@/components/Enemy/EnemyBody/Enemy5.vue'
-import Enemy6 from '@/components/Enemy/EnemyBody/Enemy6.vue'
-
-import { viewHandDrowProject } from '@/api/programming.js'
+import { save, submit, GetRoutePageByTaskId, handleProcess } from "@/api/Ha";
+import Enemy1 from "@/components/Enemy/EnemyBody/Enemy1.vue";
+import Enemy2 from "@/components/Enemy/EnemyBody/Enemy2.vue";
+import Enemy3 from "@/components/Enemy/EnemyBody/Enemy3.vue";
+import Enemy4 from "@/components/Enemy/EnemyBody/Enemy4.vue";
+import Enemy5 from "@/components/Enemy/EnemyBody/Enemy5.vue";
+import Enemy6 from "@/components/Enemy/EnemyBody/Enemy6.vue";
 export default {
-  name: 'TaskConter',
+  name: "TaskConter",
   components: {
     Enemy1,
     Enemy2,
     Enemy3,
     Enemy4,
     Enemy5,
-    Enemy6
+    Enemy6,
   },
   data() {
     return {
+      NumShow: 1,
+      id: "",
+      disabled: false,
+      refuse: false,
+      refuseData: "",
+      authRight: 0,
       progress: 1,
       projectSinData: null,
+      confirm: "下一步",
       progressDatta: [
         {
-          name: '敌方军事情况',
-          index: 1
+          name: "敌方军事情况",
+          index: 1,
         },
         {
-          name: '敌方非传统战争和心理战情况',
-          index: 2
+          name: "敌方非传统战争和心理战情况",
+          index: 2,
         },
         {
-          name: '敌方能力',
-          index: 3
+          name: "敌方能力",
+          index: 3,
         },
         {
-          name: '敌方能力分析',
-          index: 4
+          name: "敌方能力分析",
+          index: 4,
         },
         {
-          name: '结论',
-          index: 5
+          name: "结论",
+          index: 5,
         },
         {
-          name: '中立方的分析',
-          index: 6
-        }
-      ]
-    }
+          name: "中立方的分析",
+          index: 6,
+        },
+      ],
+    };
   },
   created() {
-
+    if (this.$route.query.id == undefined) {
+    } else {
+      GetRoutePageByTaskId(this.baseUrl, {
+        id: this.$route.query.id,
+      }).then((res) => {
+        // console.log(res,'aaaaaaaaaa')
+        if (res.data.content == undefined) {
+        } else {
+          this.$store.state.content = res.data.content;
+        }
+      });
+      this.NumShow = this.$route.query.dealStatus;
+    }
+  },
+  watch: {
+    $route() {
+      this.$router.go(0);
+      this.NumShow = this.$route.query.dealStatus;
+      this.id = this.$route.query.id;
+    },
+    NumShow() {
+      if (this.NumShow == "0") {
+        this.disabled = true;
+      } else {
+        this.disabled = false;
+      }
+    },
+    id() {
+      GetRoutePageByTaskId(this.baseUrl, {
+        id: this.$route.query.id,
+      }).then((res) => {
+        if (res.data.content == undefined) {
+        } else {
+          this.$store.state.content = res.data.content;
+        }
+      });
+    },
   },
   methods: {
-    // 接收数据
-    // viewHandDrowProjectData(){
-    //     viewHandDrowProject(this.baseUrl).then((res) => {
-    //    this.projectSinData = res.data;
-    // });
-    // },
     progressClick(index) {
-      this.progress = index
+      this.progress = index;
     },
     nextClick(index) {
-      this.progress = index
+      this.progress =  this.progress+1;
       // console.log(index)
-    }
-  }
-}
+    },
+    // 提交
+    submitClick() {
+      submit(this.baseUrl, {
+        taskId: this.$route.query.id,
+        content: this.$store.state.content,
+      }).then((res) => {
+        // console.log("111111111111111", res);
+        this.$message(res.msg);
+      });
+    },
+    // 拒绝
+    refuse_Dialog_Clcik() {
+      this.id = parseInt(this.$route.query.id);
+      handleProcess(this.baseUrl, {
+        reason: this.refuseData,
+        status: 1,
+        taskId: this.id,
+      }).then((res) => {
+        this.refuse = false;
+      });
+    },
+    flxClick() {
+      save(this.baseUrl, {
+        taskId: this.$route.query.id,
+        content: this.$store.state.content,
+      });
+    },
+  },
+};
 </script>
 <style scoped>
 .pro2 {
@@ -125,7 +208,8 @@ export default {
 }
 .task_conter {
   background: #031437;
-  border: 1px solid #4156f4;
+  /* border: 1px solid #4156f4; */
+  border-bottom: 0px solid #4156f4;
   /* height: 25rem; */
   position: relative;
 }
@@ -159,7 +243,7 @@ export default {
 .pro_bom {
   display: flex;
   position: absolute;
-  bottom: 1rem;
+  bottom: 0rem;
   right: 1rem;
 }
 .pro1 {
@@ -187,6 +271,7 @@ export default {
   margin-right: 1rem;
   font-weight: bold;
   font-size: 0.9rem;
+  cursor: pointer;
 }
 .pro_bom2 {
   background: #0076db;
@@ -199,6 +284,7 @@ export default {
   margin-right: 1rem;
   font-weight: bold;
   font-size: 0.9rem;
+  cursor: pointer;
 }
 .pro_con_item {
   width: 45%;
@@ -206,7 +292,7 @@ export default {
   align-items: center;
   justify-content: space-between;
 }
-/deep/.el-step__title{
+/deep/.el-step__title {
   font-size: 0.6rem;
 }
 /deep/.el-textarea__inner {

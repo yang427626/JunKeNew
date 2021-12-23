@@ -26,7 +26,7 @@ import NavarchyAction from '@/components/NavarchySin/NavarchyBody/NavarchyAction
 import NavarchyDefine from '@/components/NavarchySin/NavarchyBody/NavarchyDefine.vue'
 import NavarchyEnviron from '@/components/NavarchySin/NavarchyBody/NavarchyEnviron.vue'
 import NavarchyGuide from '@/components/NavarchySin/NavarchyBody/NavarchyGuide.vue'
-import NavarchyMessage from '@/components/NavarchySin/NavarchyBody/NavarchyMessage.vue'
+import NavarchyMessage from '@/components/NavarchySin/NavarchyBody/NavarchyMessageJ2.vue'
 import NavarchyHave from '@/components/NavarchySin/NavarchyBody/NavarchyHave.vue'
 export default {
   components: {

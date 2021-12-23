@@ -3,18 +3,13 @@
     <div class="pro1">5.假设和限制</div>
     <div class="pro3_item">
       <div class="pro3_item_item">
-        <textarea v-model="pro3_a" class="pro3_a1" />
+        <textarea v-model="$store.state.HaAaveProject.suppose" class="pro3_a1" />
         <p class="sub_title">说明继续规划所需的假设.它们将被下级司令部当作事实</p>
       </div>
       <div class="pro3_item_item">
-        <textarea v-model="pro3_a" class="pro3_a1" />
+        <textarea v-model="$store.state.HaAaveProject.limitCondition" class="pro3_a1" />
         <p class="sub_title">列表不是最终的;规划期间可能会添加或删除假设.说明适用于该计划的限制.</p>
       </div>
-    </div>
-    <div class="pro_bom">
-      <p class="pro_bom1">取消</p>
-      <p class="pro_bom2" @click="nextClick">下一步</p>
-      <p class="pro_bom2" @click="flxClick">确定</p>
     </div>
   </div>
 </template>
@@ -71,7 +66,7 @@ textarea{
 .pro_bom {
   display: flex;
   position: absolute;
-  bottom: 1rem;
+  bottom: 0rem;
   right: 1rem;
 }
 .pro_bom1 {

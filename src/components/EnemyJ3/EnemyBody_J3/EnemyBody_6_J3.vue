@@ -5,7 +5,8 @@
         <div class="pro3_a">
           <p class="sub_title">(1)现有情况</p>
           <div class="textarea_div">
-            <textarea v-model="pro3_a" class="pro3_b1" />
+            <textarea   v-model="$store.state.CEcontent.CE_J2_6.CE_J2_6_data_progress1"
+              :disabled="disabled" class="pro3_b1" />
             <p class="sub_title_p">
               （描述语言、宗教、社会机构、少数民族群体、人口分布、卫生保健和其他相关因素。）
             </p>
@@ -14,7 +15,8 @@
         <div class="pro3_a">
           <p class="sub_title">(2)对敌方能力的影响</p>
           <div class="textarea_div">
-            <textarea v-model="pro3_a" class="pro3_b1" />
+            <textarea  v-model="$store.state.CEcontent.CE_J2_6.CE_J2_6_data_progress2"
+              :disabled="disabled" class="pro3_b1" />
             <p class="sub_title_p">
               考虑社会情况对敌方广泛能力的影响。）
             </p>
@@ -23,7 +25,8 @@
         <div class="pro3_a">
           <p class="sub_title">(3)对己方作战行动的影响</p>
           <div class="textarea_div">
-            <textarea v-model="pro3_a" class="pro3_b1" />
+            <textarea  v-model="$store.state.CEcontent.CE_J2_6.CE_J2_6_data_progress3"
+              :disabled="disabled" class="pro3_b1" />
             <p class="sub_title_p">
               （考虑社会情况对友军广泛作战行动的影响。）
             </p>
@@ -34,23 +37,69 @@
     </div>
     <div class="pro_bom">
       <p class="pro_bom1">取消</p>
+      <p class="pro_bom2" @click="flxClick">保存</p>
       <p class="pro_bom2" @click="nextClick">下一步</p>
-      <p class="pro_bom2" @click="flxClick">确定</p>
     </div>
   </div>
 </template>
 <script>
+import { save, GetRoutePageByTaskId } from "@/api/Ha";
 export default {
   data() {
     return {
-      pro3_a: ''
+      pro3_a: '',
+       NumShow: 1,
+      id: "",
+      disabled: false,
     }
   },
+  // created() {
+  //   if (this.$route.query.id == undefined) {
+  //   } else {
+  //     GetRoutePageByTaskId(this.baseUrl, {
+  //       id: this.$route.query.id,
+  //     }).then((res) => {
+  //       if (res.data.content == undefined) {
+  //       } else {
+  //         this.$store.state.CEcontent = res.data.content;
+  //       }
+  //     });
+  //     this.NumShow = this.$route.query.dealStatus;
+  //   }
+  // },
+  // watch: {
+  //   $route() {
+  //     this.NumShow = this.$route.query.dealStatus;
+  //     this.id = this.$route.query.id;
+  //   },
+  //   NumShow() {
+  //     if (this.NumShow == "0") {
+  //       this.disabled = true;
+  //     } else {
+  //       this.disabled = false;
+  //     }
+  //   },
+  //   id() {
+  //     GetRoutePageByTaskId(this.baseUrl, {
+  //       id: this.$route.query.id,
+  //     }).then((res) => {
+  //       if (res.data.content == undefined) {
+  //       } else {
+  //         this.$store.state.CEcontent = res.data.content;
+  //       }
+  //     });
+  //   },
+  // },
   methods: {
     nextClick() {
-      this.$emit('nextClick', 9)
+      this.$emit('nextClick', 7)
     },
-    flxClick() {}
+    flxClick() {
+      save(this.baseUrl, {
+        taskId: this.$route.query.id,
+        content: this.$store.state.CEcontent,
+      });
+    },
   }
 }
 </script>
@@ -92,6 +141,7 @@ textarea {
   background: #1f295c;
   border: 1px solid #4156f4;
   color: #4a88a8;
+  outline: none;
 }
 .pro3_b1 {
   height: 1.5rem;
@@ -100,7 +150,7 @@ textarea {
   overflow-y: scroll;
 }
 .sub_title {
-  margin: 0.5rem 0;
+  margin: 0.2rem 0;
   color: #90c4df;
   width: 5rem;
   font-size: 0.8rem;
@@ -120,7 +170,7 @@ textarea {
 .pro_bom {
   display: flex;
   position: absolute;
-  bottom: 1rem;
+  bottom: 0rem;
   right: 1rem;
 }
 .pro_bom1 {

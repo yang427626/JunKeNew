@@ -6,19 +6,19 @@
         <span class="title">a.指挥官的意图</span>
         <div class="pro3_a">
           <p class="sub_title">(1)目的</p>
-          <textarea v-model="pro3_a" class="pro3_b1" />
+          <textarea v-model="$store.state.HaAaveProject.commanderA1" class="pro3_b1" />
         </div>
         <div class="pro3_a">
           <p class="sub_title">(2)预期的战略效果</p>
-          <textarea v-model="pro3_a" class="pro3_b1" />
+          <textarea v-model="$store.state.HaAaveProject.commanderA2" class="pro3_b1" />
         </div>
         <div class="pro3_a">
           <p class="sub_title">(3)关键任务</p>
-          <textarea v-model="pro3_a" class="pro3_b1" />
+          <textarea v-model="$store.state.HaAaveProject.commanderA3" class="pro3_b1" />
         </div>
         <div class="pro3_a">
           <p class="sub_title">(4)最终状态</p>
-          <textarea v-model="pro3_a" class="pro3_b1" />
+          <textarea v-model="$store.state.HaAaveProject.commanderA4" class="pro3_b1" />
         </div>
       </div>
       <div class="pro4">
@@ -27,15 +27,10 @@
             class="title"
           >b.本段包含指挥官对使命任务的分析,即如何分阶段执行使命任务</span>
           <div class="pro3_a">
-            <textarea v-model="pro3_a" class="pro3_b1" />
+            <textarea v-model="$store.state.HaAaveProject.commanderB" class="pro3_b1" />
           </div>
         </div>
       </div>
-    </div>
-    <div class="pro_bom">
-      <p class="pro_bom1">取消</p>
-      <p class="pro_bom2" @click="nextClick">下一步</p>
-      <p class="pro_bom2" @click="flxClick">确定</p>
     </div>
   </div>
 </template>
@@ -80,7 +75,7 @@ textarea {
   overflow-y: scroll;
 }
 .sub_title {
-  margin: 0.5rem 0;
+  margin: 0.2rem 0;
   color: #90c4df;
   font-size: 0.8rem;
   // text-align: center;
@@ -101,7 +96,7 @@ textarea {
 .pro_bom {
   display: flex;
   position: absolute;
-  bottom: 1rem;
+  bottom: 0rem;
   right: 1rem;
 }
 .pro_bom1 {

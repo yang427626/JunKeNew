@@ -2,20 +2,14 @@
   <div>
     <div class="pro1">2.目的</div>
     <div class="pro2">
-      <el-input
-        v-model="pro2_input"
-        type="textarea"
-        class="pro2_input"
+      <textarea
+        v-model="$store.state.HaAaveProject.target"
+        class="target"
         show-word-limit
       />
       <p class="text">
         本规划指令确定了制定美国xxx司令部想计划xxxx-xxx(前4位是计划号,后2位是年份)的规划职责.他为了美国xxx司令部总部参某部和下属司令部提供关于制定的协调规划活动的指南和需求.
       </p>
-    </div>
-    <div class="pro_bom">
-      <p class="pro_bom1">取消</p>
-      <p class="pro_bom2" @click="nextClick">下一步</p>
-      <p class="pro_bom2" @click="flxClick">确定</p>
     </div>
   </div>
 </template>
@@ -26,7 +20,7 @@ export default {
   },
   data() {
     return {
-      pro2_input: ''
+     
     }
   },
   methods: {
@@ -38,22 +32,30 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+.target{
+  width: 100%;
+  margin: 0 auto;
+  height: 16rem;
+}
+.pro2{
+   width: 98%;
+  margin: 1rem auto;
+}
+textarea {
+  resize: none;
+  background: #1f295c;
+  border: 1px solid #4156f4;
+  color: #4a88a8;
+  outline:none;
+  overflow: auto;
+}
 .text_pro {
   display: inline-block;
   font-size: 0.7rem;
   width: 40%;
 }
-.pro2 {
-  width: 96%;
-  margin-top: 1rem;
-  /* height: 100px; */
-}
-.task_conter {
-  background: #031437;
-  border: 1px solid #4156f4;
-  height: 67vh;
-  position: relative;
-}
+
+
 .text {
   color: #90c4df;
   width: 96%;
@@ -84,7 +86,7 @@ export default {
 .pro_bom {
   display: flex;
   position: absolute;
-  bottom: 1rem;
+  bottom: 0rem;
   right: 1rem;
 }
 .pro1 {
@@ -140,36 +142,5 @@ cursor: pointer;
   align-items: center;
   justify-content: space-between;
 }
-/deep/.el-textarea__inner {
-  background: #1f295c;
-  height: 17rem;
-  border: 1px solid #4156f4;
-}
-/deep/ .el-input--small {
-  width: 100%;
-  margin-left: 1rem;
-  background: #1f295c;
-  border: 1px solid #4156f4;
-}
-/deep/ .el-input__inner {
-  background: #1f295c;
-  border: 1px solid #4156f4;
-  color: #4a88a8;
-}
-/deep/ .el-step__title.is-process {
-  font-weight: 400;
-  color: #4156f4;
-}
-/deep/ .el-step__title.is-finish {
-  font-weight: 400;
-  color: #4156f4;
-}
-/deep/ .el-step__title.is-wait {
-  font-weight: 400;
-  color: #4156f4;
-}
-/deep/ .el-step__icon.is-text {
-  background: #031437;
-  color: #fff;
-}
+
 </style>

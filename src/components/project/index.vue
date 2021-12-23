@@ -65,6 +65,12 @@
         <div />
       </div>
     </div>
+      <div class="pro_bom">
+      <p class="pro_bom1">取消</p>
+        <p class="pro_bom2" @click="flxClick">确定</p>
+      <p class="pro_bom2" v-if="progress<10" @click="nextClick">下一步</p>
+    </div>
+    
   </div>
 </template>
 <script>
@@ -78,7 +84,7 @@ import projectSin7 from '@/components/projectSin/projectSin7.vue'
 import projectSin8 from '@/components/projectSin/projectSin8.vue'
 import projectSin9 from '@/components/projectSin/projectSin9.vue'
 import projectSin10 from '@/components/projectSin/projectSin10.vue'
-import { viewHandDrowProject } from '@/api/programming.js'
+import { HaViewHandDrowProject,HaSaveProject  } from '@/api/Ha.js'
 export default {
   name: 'TaskConter',
   components: {
@@ -142,25 +148,35 @@ export default {
     }
   },
   created() {
-    // viewHandDrowProject(this.baseUrl).then((res) => {
-    //    console.log('22222222222222')
-    //    this.projectSinData = res.data;
-    // });
+    HaViewHandDrowProject(this.baseUrl).then(res=>{
+      if(res.code==0){
+        this.$store.state.HaAaveProject=res.data;
+      }else{
+        alert('HaViewHandDrowProject')
+      }
+     
+    })
   },
   methods: {
-    // 接收数据
-    // viewHandDrowProjectData(){
-    //     viewHandDrowProject(this.baseUrl).then((res) => {
-    //    this.projectSinData = res.data;
-    // });
-    // },
+  
     progressClick(index) {
       this.progress = index
     },
-    nextClick(index) {
-      this.progress = index
-      // console.log(index)
-    }
+    nextClick() {
+      this.progress++
+    },
+  // 确定按钮
+    flxClick() {
+      HaSaveProject(this.baseUrl, this.$store.state.HaAaveProject).then(
+        (res) => {
+         if(res.code==0){
+           this.$message(res.msg)
+         }else{
+           alert("HaSaveProject")
+         }
+        }
+      );
+    },
   }
 }
 </script>
@@ -206,7 +222,7 @@ export default {
 .pro_bom {
   display: flex;
   position: absolute;
-  bottom: 1rem;
+  bottom: 0rem;
   right: 1rem;
 }
 .pro1 {
@@ -234,6 +250,7 @@ export default {
   margin-right: 1rem;
   font-weight: bold;
   font-size: 0.9rem;
+  cursor: pointer;
 }
 .pro_bom2 {
   background: #0076db;
@@ -246,6 +263,7 @@ export default {
   margin-right: 1rem;
   font-weight: bold;
   font-size: 0.9rem;
+   cursor: pointer;
 }
 .pro_con_item {
   width: 45%;

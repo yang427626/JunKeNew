@@ -6,26 +6,26 @@
         <div class="pro3_item">
           <span class="title">a.</span>
           <div class="pro3_item_item">
-            <textarea v-model="pro3_a" class="pro3_a1" />
+            <textarea v-model="$store.state.HaAaveProject.taskA" class="pro3_a1" />
             <p class="sub_title">规划开始制定参谋判定参谋部职责</p>
           </div>
         </div>
         <div class="pro3_item">
           <span class="title">b.</span>
           <div class="pro3_item_item">
-            <textarea v-model="pro3_a" class="pro3_a1" />
+            <textarea v-model="$store.state.HaAaveProject.taskB" class="pro3_a1" />
             <p class="sub_title">概述协调指示</p>
             <div class="pro3_item">
               <span class="title1">(1)</span>
               <div class="pro3_item_item">
-                <textarea v-model="pro3_a" class="pro3_b1" />
+                <textarea v-model="$store.state.HaAaveProject.taskB1" class="pro3_b1" />
                 <p class="sub_title">需要相邻和下属司令部和机构协调</p>
               </div>
             </div>
             <div class="pro3_item">
               <span class="title1">(2)</span>
               <div class="pro3_item_item">
-                <textarea v-model="pro3_a" class="pro3_b1" />
+                <textarea v-model="$store.state.HaAaveProject.taskB2" class="pro3_b1" />
                 <p class="sub_title">需要单个军种,通用和交叉协调</p>
               </div>
             </div>
@@ -33,11 +33,7 @@
         </div>
       </div>
     </div>
-    <div class="pro_bom">
-      <p class="pro_bom1">取消</p>
-      <p class="pro_bom2" @click="nextClick">下一步</p>
-      <p class="pro_bom2" @click="flxClick">确定</p>
-    </div>
+
   </div>
 </template>
 <script>
@@ -115,7 +111,7 @@ textarea {
 .pro_bom {
   display: flex;
   position: absolute;
-  bottom: 1rem;
+  bottom: 0rem;
   right: 1rem;
 }
 .pro_bom1 {

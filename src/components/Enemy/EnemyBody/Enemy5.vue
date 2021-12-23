@@ -10,7 +10,8 @@
           <p class="sub_title">(1)</p>
           <div class="textarea_div">
             <textarea
-              v-model="pro3_a"
+              v-model="$store.state.content.CM_J2_5_progress1"
+            :disabled="disabled"
               placeholder="在现有地点利用...进行防御"
               class="pro3_b1"
             />
@@ -20,7 +21,8 @@
           <p class="sub_title">(2)</p>
           <div class="textarea_div">
             <textarea
-              v-model="pro3_a"
+                v-model="$store.state.content.CM_J2_5_progress2"
+            :disabled="disabled"
               placeholder="从当前位置沿着...开始延迟"
               class="pro3_b1"
             />
@@ -30,7 +32,8 @@
           <p class="sub_title">(3)</p>
           <div class="textarea_div">
             <textarea
-              v-model="pro3_a"
+                 v-model="$store.state.content.CM_J2_5_progress3"
+            :disabled="disabled"
               placeholder="利用...加强防御或延迟"
               class="pro3_b1"
             />
@@ -40,7 +43,8 @@
           <p class="sub_title">(4)</p>
           <div class="textarea_div">
             <textarea
-              v-model="pro3_a"
+                 v-model="$store.state.content.CM_J2_5_progress4"
+            :disabled="disabled"
               placeholder="在该地区进行非常规作战活动"
               class="pro3_b1"
             />
@@ -53,7 +57,8 @@
           <p class="sub_title">(1)</p>
           <div class="textarea_div">
             <textarea
-              v-model="pro3_a"
+                 v-model="$store.state.content.CM_J2_5_progress5"
+            :disabled="disabled"
               placeholder="敌方的左(西)侧翼容易被两栖攻击所包围..."
               class="pro3_b1"
             />
@@ -63,7 +68,8 @@
           <p class="sub_title">(2)</p>
           <div class="textarea_div">
             <textarea
-              v-model="pro3_a"
+                  v-model="$store.state.content.CM_J2_5_progress6"
+            :disabled="disabled"
               placeholder="敌方在其防御区的左(西)部分的空中搜索雷达覆盖范围很差..."
               class="pro3_b1"
             />
@@ -71,27 +77,73 @@
         </div>
       </div>
     </div>
-    <div class="pro_bom">
-      <p class="pro_bom1">取消</p>
-      <p class="pro_bom2" @click="nextClick">下一步</p>
-      <p class="pro_bom2" @click="flxClick">确定</p>
-    </div>
+ 
   </div>
 </template>
 <script>
+import { save, GetRoutePageByTaskId } from "@/api/Ha";
 export default {
   data() {
     return {
-      pro3_a: ''
+       NumShow: 1,
+      id: "",
+      pro3_a:"",
+      disabled: false,
+    };
+  },
+  props: {
+    confirm: String,
+  },
+  created() {
+    if (this.$route.query.id == undefined) {
+    } else {
+      GetRoutePageByTaskId(this.baseUrl, {
+        id: this.$route.query.id,
+      }).then((res) => {
+        // console.log(res,'aaaaaaaaaa')
+        if (res.data.content == undefined) {
+        } else {
+          this.$store.state.content = res.data.content;
+        }
+      });
+      this.NumShow = this.$route.query.dealStatus;
     }
+  },
+  watch: {
+    $route() {
+      this.NumShow = this.$route.query.dealStatus;
+      this.id = this.$route.query.id;
+    },
+    NumShow() {
+      if (this.NumShow == "0") {
+        this.disabled = true;
+      } else {
+        this.disabled = false;
+      }
+    },
+    id() {
+      GetRoutePageByTaskId(this.baseUrl, {
+        id: this.$route.query.id,
+      }).then((res) => {
+        if (res.data.content == undefined) {
+        } else {
+          this.$store.state.content = res.data.content;
+        }
+      });
+    },
   },
   methods: {
     nextClick() {
-      this.$emit('nextClick', 9)
+      this.$emit("nextClick", 6);
     },
-    flxClick() {}
-  }
-}
+       flxClick() {
+      save(this.baseUrl, {
+        taskId: this.$route.query.id,
+        content: this.$store.state.content,
+      });
+    },
+  },
+};
 </script>
 <style lang="scss" scoped>
 .enemy {
@@ -100,7 +152,7 @@ export default {
 }
 .pro4 {
   height: 20rem;
-//   overflow-y: scroll;
+  //   overflow-y: scroll;
 }
 .textarea_div {
   width: 100%;
@@ -127,6 +179,7 @@ export default {
   margin-left: 2rem;
 }
 textarea {
+  outline: none;
   resize: none;
   background: #1f295c;
   border: 1px solid #4156f4;
@@ -139,7 +192,7 @@ textarea {
   font-size: 0.8rem;
 }
 .sub_title {
-  margin: 0.5rem 0;
+  margin: 0.2rem 0;
   color: #90c4df;
   font-size: 0.8rem;
   // text-align: center;
@@ -158,7 +211,7 @@ textarea {
 .pro_bom {
   display: flex;
   position: absolute;
-  bottom: 1rem;
+  bottom: 0rem;
   right: 1rem;
 }
 .pro_bom1 {
